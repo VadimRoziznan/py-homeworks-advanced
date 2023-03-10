@@ -17,5 +17,5 @@ with open("phonebook_raw.csv", encoding='utf-8') as f:
         # print(r[index].split()[0:2])
     pprint(r)
 
-
+fvefv
 
