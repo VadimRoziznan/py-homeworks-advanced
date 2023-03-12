@@ -1,47 +1,56 @@
-from pprint import pprint
 import csv
 import re
+
 
 with open("phonebook_raw.csv", encoding='utf-8') as f:
     rows = csv.reader(f, delimiter=",")
     contacts_list = list(rows)
 
+pattern = r"[-()\s]"
+replace = ''
+pattern_1 = r"(\+7|^8)(\d\d\d)(\d\d\d)(\d\d)(\d\d)"
+replace_1 = r'+7(\2)\3-\4-\5'
+replace_2 = r'+7(\2)\3-\4-\5 '
+temporary_list = []
+final_list = []
 
-    pattern = r"('|\n)"
-    replace = r""
-    pattern_2 = r"\s+"
-    replace_2 = r" "
-    pattern_3 = re.compile(r"([А-ЯЁ][а-яё]*\s[А-ЯЁ][а-яё]*\s[А-ЯЁ][а-яё]*)|([А-ЯЁ][а-яё]*\s[А-ЯЁ]{1}[а-яё]*)")
+for index, item in enumerate(contacts_list):
+    temporary_list.append((' ').join(item[0:3]).split(' ')[0:3])
+    if contacts_list[index][3]:
+        temporary_list[index].append(contacts_list[index][3])
+    else:
+        temporary_list[index].append('')
+    if contacts_list[index][4]:
+        temporary_list[index].append(contacts_list[index][4])
+    else:
+        temporary_list[index].append('')
+    if contacts_list[index][5]:
+        r = re.sub(pattern, replace, ''.join(contacts_list[index][5]))
+        if 'доб.' in r:
+            r = re.sub(pattern_1, replace_2, r)
+        else:
+            r = re.sub(pattern_1, replace_1, r)
+        temporary_list[index].append(r)
+    else:
+        temporary_list[index].append('')
+    if contacts_list[index][6]:
+        temporary_list[index].append(contacts_list[index][6])
+    else:
+        temporary_list[index].append('')
 
-    r = []
-    names = []
-    firstname = []
-    surname = []
+for index in range(1, len(temporary_list)):
+    for el in range(index+1, len(temporary_list)):
+        if temporary_list[index][0] in temporary_list[el]:
+            for k in range(len(temporary_list[index])):
+                if temporary_list[index][k]:
+                    continue
+                else:
+                    temporary_list[index][k] = temporary_list[el][k]
+            temporary_list[el] = temporary_list[index]
+    if temporary_list[index] not in final_list:
+        final_list.append(temporary_list[index])
+print(final_list)
 
-    for index, item in enumerate(contacts_list):
-
-        r.append(re.sub(pattern, replace, ' '.join(contacts_list[index])))
-        r[index] = re.sub(pattern_2, replace_2, r[index])
-        if pattern_3.search(r[index]):
-            f = pattern_3.search(r[index])
-            names.append(f.group(0).split())
-        r[index] = re.sub(pattern_3, '', r[index])
-        print(r[index].split())
-    # print(names)
-    # print()
-    # print()
-    # print(r)
-
-
-
-        # l = pattern_3.search(r[index])
-        # print(l.group(0))
-
-
-        # if r[index].split()[0:3][2][-3:] in ['вич', 'вна']:
-        #     print(r[index].split()[0:3])
-
-
-
-
-
+with open("phonebook.csv", "w", encoding='utf-8') as f:
+    datawriter = csv.writer(f, delimiter=',')
+    datawriter.writerows(final_list)
