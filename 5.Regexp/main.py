@@ -38,7 +38,7 @@ for index, item in enumerate(contacts_list):
     else:
         temporary_list[index].append('')
 
-for index in range(1, len(temporary_list)):
+for index in range(len(temporary_list)):
     for el in range(index+1, len(temporary_list)):
         if temporary_list[index][0] in temporary_list[el]:
             for k in range(len(temporary_list[index])):
@@ -49,7 +49,6 @@ for index in range(1, len(temporary_list)):
             temporary_list[el] = temporary_list[index]
     if temporary_list[index] not in final_list:
         final_list.append(temporary_list[index])
-print(final_list)
 
 with open("phonebook.csv", "w", encoding='utf-8') as f:
     datawriter = csv.writer(f, delimiter=',')
