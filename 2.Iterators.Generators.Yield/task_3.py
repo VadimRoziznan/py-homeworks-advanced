@@ -38,7 +38,7 @@ def test_3(list_1):
     ):
 
         assert flat_iterator_item == check_item
-        
+
     assert list(FlatIterator.re_formate(list_1)) == ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None, '!']
 
 
