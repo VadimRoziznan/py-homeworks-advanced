@@ -10,6 +10,7 @@ def visits_list(list_):
 
 if __name__ == '__main__':
     geo_logs = [
-        {'visit1': ['Москва', 'Россия']}
+        {'visit1': ['Москва', 'Россия']},
+        {'visit10': ['Архангельск', 'Россия']}
     ]
     print(list(visits_list(geo_logs)[0].values())[0][1])
