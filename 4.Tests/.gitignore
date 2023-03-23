@@ -133,3 +133,4 @@ settings.ini
 .pytest_cache
 __pycache__
 src
+venv
