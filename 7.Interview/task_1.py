@@ -3,15 +3,6 @@ class Stack:
     def __init__(self, stack: list):
         self.stack = stack
 
-    def __iter__(self):
-        self.count = -1
-
-    def __next__(self):
-        self.count += 1
-        if self.count > len(self.stack):
-            raise StopIteration
-
-
     def is_empty(self):
         try:
             if self.stack[0]:
@@ -33,7 +24,7 @@ class Stack:
 
 
 if __name__ == '__main__':
-    stack_ = []
+    stack_ = [1, 22]
     test = Stack(stack_)
     print(test.is_empty())
     element = 'test'
