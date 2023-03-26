@@ -1,7 +1,7 @@
 class Stack:
 
-    def __init__(self, stack: list):
-        self.stack = stack
+    def __init__(self, stack=None):
+        self.stack = []
 
     def is_empty(self):
         try:
