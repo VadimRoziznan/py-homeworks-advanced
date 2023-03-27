@@ -1,7 +1,7 @@
 class Stack:
 
-    def __init__(self, stack=None):
-        self.stack = []
+    def __init__(self, stack):
+        self.stack = stack
 
     def is_empty(self):
         try:
@@ -24,7 +24,7 @@ class Stack:
 
 
 if __name__ == '__main__':
-    stack_ = [1, 22]
+    stack_ = [1, 22, 1]
     test = Stack(stack_)
     print(test.is_empty())
     element = 'test'
